@@ -3,10 +3,10 @@
 {% block title %}Login | {{ BRAND_NAME }}{% endblock %}
 
 {% block body %}
-<main class="relative z-[1] bg-white p-6 dark:bg-gray-900 sm:p-0">
-  <div class="relative flex min-h-screen w-full flex-col dark:bg-gray-900 lg:flex-row lg:items-stretch">
-    <section class="flex w-full flex-1 flex-col lg:min-h-screen lg:w-1/2">
-      <div class="mx-auto w-full max-w-md pt-10">
+<main class="auth-shell">
+  <div class="auth-layout">
+    <section class="auth-main-pane">
+      <div class="auth-back-link-wrap">
         <a href="{% url 'core:dashboard' %}" class="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
           <svg class="stroke-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M12.7083 5L7.5 10.2083L12.7083 15.4167" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -15,7 +15,7 @@
         </a>
       </div>
 
-      <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-12">
+      <div class="auth-form-wrap">
         <div class="mb-5 sm:mb-8">
           <h1 class="mb-2 text-3xl font-semibold text-gray-800 dark:text-white/90 sm:text-4xl">Sign In</h1>
           <p class="text-sm text-gray-500 dark:text-gray-400">Enter your email and password to sign in!</p>
@@ -115,7 +115,7 @@
       </div>
     </section>
 
-    <aside class="relative hidden w-full bg-brand-950 dark:bg-white/5 lg:grid lg:min-h-screen lg:w-1/2 lg:place-items-center">
+    <aside class="auth-side-pane">
       <div class="auth-grid auth-grid-top"></div>
       <div class="auth-grid auth-grid-bottom"></div>
       <div class="z-[1] flex items-center justify-center">
