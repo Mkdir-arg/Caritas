@@ -1,0 +1,14 @@
+{
+  "name": "caritas",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tailwindcss -i ./static/src/css/input.css -o ./static/dist/css/app.css --watch",
+    "build": "tailwindcss -i ./static/src/css/input.css -o ./static/dist/css/app.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
+    "tailwindcss": "^3.4.17"
+  }
+}

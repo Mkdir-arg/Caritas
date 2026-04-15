@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  :root.dark {
+    color-scheme: dark;
+  }
+
+  html {
+    font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  body {
+    background: #f7f7f4;
+  }
+
+  .dark body {
+    background: #111827;
+  }
+}
+
+@layer components {
+  .auth-input {
+    @apply h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 shadow-theme transition focus:border-brand-300 focus:outline-none focus:ring-4 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800;
+  }
+
+  .auth-logo-mark {
+    @apply flex h-11 w-11 items-center justify-center rounded-xl shadow-[0_10px_25px_rgba(70,95,255,0.22)];
+  }
+
+  .auth-grid {
+    @apply pointer-events-none absolute -z-[1] h-64 w-64 opacity-80 xl:h-[27rem] xl:w-[27rem];
+  }
+
+  .auth-grid-top {
+    @apply right-0 top-0;
+  }
+
+  .auth-grid-bottom {
+    @apply bottom-0 left-0 rotate-180;
+  }
+}
+
+@layer utilities {
+  .bg-shell {
+    background-color: #f7f7f4;
+  }
+
+  .auth-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 30px 30px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), transparent 90%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), transparent 90%);
+  }
+}
