@@ -53,3 +53,9 @@ Que se evaluo y por que no se eligio.
 ## Regla
 
 Si una decision modifica como crece el repo y no queda registrada aca, esa decision queda incompleta.
+
+---
+
+## ADRs vigentes
+
+- [`ADR-0001 — Adopcion de realtime con Django Channels y Redis`](./ADR-0001-adopcion-de-realtime-con-django-channels-y-redis.md)

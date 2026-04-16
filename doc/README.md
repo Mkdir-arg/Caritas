@@ -16,6 +16,8 @@ Punto de entrada de la documentación del proyecto. **Cualquier agente o desarro
 | [`diseño/DESIGN_SYSTEM.md`](./diseño/DESIGN_SYSTEM.md) | Tokens, componentes, modo oscuro, accesibilidad, copy | Cualquier cambio de UI. |
 | [`decisiones/`](./decisiones/README.md) | Registro de decisiones arquitectónicas (ADRs) | Cuando se cambia la estructura o se adopta nueva infraestructura. |
 
+ADR vigente inicial: [`ADR-0001 — Adopcion de realtime con Django Channels y Redis`](./decisiones/ADR-0001-adopcion-de-realtime-con-django-channels-y-redis.md)
+
 ---
 
 ## Stack en 1 línea

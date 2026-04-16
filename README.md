@@ -37,3 +37,12 @@ El proyecto ahora incluye una capa realtime con Django Channels + Redis.
 - El dashboard escucha cambios en usuarios y grupos y refresca sus métricas sin recargar la página.
 
 Para verlo funcionando, levantá el stack completo y abrí `http://localhost:8000/dashboard/`. Cuando crees, edites o elimines usuarios o grupos, el dashboard conectado debería actualizarse en vivo.
+
+## Documentacion
+
+La documentacion normativa del proyecto vive en `doc/`.
+
+- Punto de entrada: `doc/README.md`
+- Biblia de desarrollo: `doc/desarrollo/README.md`
+- Registro de decisiones arquitectonicas: `doc/decisiones/README.md`
+- Primera ADR vigente: `doc/decisiones/ADR-0001-adopcion-de-realtime-con-django-channels-y-redis.md`
