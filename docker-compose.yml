@@ -18,6 +18,12 @@ services:
       timeout: 5s
       retries: 10
 
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
   web:
     build:
       context: .
@@ -26,6 +32,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
     env_file:
       - .env
     environment:
@@ -39,6 +47,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
       MYSQL_HOST: ${MYSQL_HOST:-db}
       MYSQL_PORT: ${MYSQL_PORT:-3306}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
       TIME_ZONE: ${TIME_ZONE:-America/Argentina/Buenos_Aires}
       LANGUAGE_CODE: ${LANGUAGE_CODE:-es-ar}
     volumes:

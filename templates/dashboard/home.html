@@ -3,7 +3,7 @@
 {% block title %}Dashboard | {{ BRAND_NAME }}{% endblock %}
 
 {% block dashboard_content %}
-  <div class="space-y-6 text-[15px]">
+  <div class="space-y-6 text-[15px]" data-dashboard-live-root data-dashboard-summary-url="{% url 'core:dashboard_summary' %}" data-dashboard-websocket-path="/ws/dashboard/">
     <section class="rounded-[1.75rem] border border-slate-200 bg-[radial-gradient(circle_at_top_left,_rgba(70,95,255,0.12),_transparent_42%),linear-gradient(180deg,_#ffffff_0%,_#f8fbff_100%)] px-6 py-7 shadow-[0_12px_32px_rgba(15,23,42,0.05)] dark:border-gray-800 dark:bg-[radial-gradient(circle_at_top_left,_rgba(70,95,255,0.16),_transparent_38%),linear-gradient(180deg,_rgba(17,24,39,0.96),_rgba(17,24,39,1))] sm:px-8 sm:py-8">
       <div class="grid gap-6 lg:grid-cols-[minmax(0,1.7fr)_320px] lg:items-start">
         <div>
@@ -28,16 +28,22 @@
         </div>
 
         <article class="rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-[0_10px_24px_rgba(15,23,42,0.05)] dark:border-gray-800 dark:bg-gray-950/70">
-          <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 dark:text-gray-500">Lectura rápida</p>
+          <div class="flex items-start justify-between gap-3">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 dark:text-gray-500">Lectura rápida</p>
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300" data-dashboard-live-indicator>
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+              <span data-dashboard-live-indicator-text>Tiempo real activo</span>
+            </span>
+          </div>
           <div class="mt-4 space-y-4">
             <div class="rounded-xl bg-slate-50 px-4 py-4 dark:bg-gray-900">
               <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Cobertura activa</p>
-              <p class="mt-2 text-2xl font-semibold tracking-tight text-ink dark:text-white/90">{{ active_user_ratio }}%</p>
+              <p class="mt-2 text-2xl font-semibold tracking-tight text-ink dark:text-white/90"><span data-dashboard-metric="active_user_ratio">{{ active_user_ratio }}</span>%</p>
               <p class="mt-1 text-sm leading-6 text-slate-500 dark:text-gray-400">Proporción de cuentas activas sobre el total registrado.</p>
             </div>
             <div class="rounded-xl bg-slate-50 px-4 py-4 dark:bg-gray-900">
               <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Altas recientes</p>
-              <p class="mt-2 text-2xl font-semibold tracking-tight text-ink dark:text-white/90">{{ recent_user_count }}</p>
+              <p class="mt-2 text-2xl font-semibold tracking-tight text-ink dark:text-white/90" data-dashboard-metric="recent_user_count">{{ recent_user_count }}</p>
               <p class="mt-1 text-sm leading-6 text-slate-500 dark:text-gray-400">Usuarios creados durante los últimos 30 días.</p>
             </div>
           </div>
@@ -56,7 +62,7 @@
             </svg>
           </span>
         </div>
-        <p class="mt-4 text-3xl font-semibold tracking-tight text-ink dark:text-white/90">{{ user_count }}</p>
+        <p class="mt-4 text-3xl font-semibold tracking-tight text-ink dark:text-white/90" data-dashboard-metric="user_count">{{ user_count }}</p>
         <p class="mt-1.5 text-sm leading-6 text-slate-500 dark:text-gray-400">Cuentas registradas en el sistema.</p>
       </article>
 
@@ -69,7 +75,7 @@
             </svg>
           </span>
         </div>
-        <p class="mt-4 text-3xl font-semibold tracking-tight text-emerald-700 dark:text-emerald-200">{{ active_user_count }}</p>
+        <p class="mt-4 text-3xl font-semibold tracking-tight text-emerald-700 dark:text-emerald-200" data-dashboard-metric="active_user_count">{{ active_user_count }}</p>
         <p class="mt-1.5 text-sm leading-6 text-emerald-700/80 dark:text-emerald-300/80">Usuarios con acceso habilitado.</p>
       </article>
 
@@ -83,7 +89,7 @@
             </svg>
           </span>
         </div>
-        <p class="mt-4 text-3xl font-semibold tracking-tight text-amber-700 dark:text-amber-200">{{ inactive_user_count }}</p>
+        <p class="mt-4 text-3xl font-semibold tracking-tight text-amber-700 dark:text-amber-200" data-dashboard-metric="inactive_user_count">{{ inactive_user_count }}</p>
         <p class="mt-1.5 text-sm leading-6 text-amber-700/80 dark:text-amber-300/80">Cuentas que requieren revisión o reactivación.</p>
       </article>
 
@@ -97,7 +103,7 @@
             </svg>
           </span>
         </div>
-        <p class="mt-4 text-3xl font-semibold tracking-tight text-ink dark:text-white/90">{{ group_count }}</p>
+        <p class="mt-4 text-3xl font-semibold tracking-tight text-ink dark:text-white/90" data-dashboard-metric="group_count">{{ group_count }}</p>
         <p class="mt-1.5 text-sm leading-6 text-slate-500 dark:text-gray-400">Grupos disponibles para estructurar permisos.</p>
       </article>
     </section>
@@ -132,7 +138,7 @@
                 <th class="px-6 py-3 text-right">Alta</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100 dark:divide-gray-800">
+            <tbody class="divide-y divide-slate-100 dark:divide-gray-800" data-dashboard-recent-users>
               {% for user_obj in recent_users %}
                 <tr class="transition hover:bg-slate-50/70 dark:hover:bg-gray-950/40">
                   <td class="px-6 py-3.5 align-middle">
@@ -190,12 +196,12 @@
       <aside class="space-y-4">
         <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.05)] dark:border-gray-800 dark:bg-gray-900">
           <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 dark:text-gray-500">Equipo interno</p>
-          <p class="mt-3 text-3xl font-semibold tracking-tight text-ink dark:text-white/90">{{ staff_user_count }}</p>
+          <p class="mt-3 text-3xl font-semibold tracking-tight text-ink dark:text-white/90" data-dashboard-metric="staff_user_count">{{ staff_user_count }}</p>
           <p class="mt-1.5 text-sm leading-6 text-slate-500 dark:text-gray-400">Usuarios con acceso administrativo al panel interno.</p>
           <div class="mt-4 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-gray-800">
-            <span class="block h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-300" style="width: {{ active_user_ratio }}%"></span>
+            <span class="block h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-300" style="width: {{ active_user_ratio }}%" data-dashboard-bar="active_user_ratio"></span>
           </div>
-          <p class="mt-2 text-xs font-medium text-slate-500 dark:text-gray-400">{{ active_user_ratio }}% de cuentas activas sobre el total.</p>
+          <p class="mt-2 text-xs font-medium text-slate-500 dark:text-gray-400"><span data-dashboard-metric="active_user_ratio_text">{{ active_user_ratio }}%</span> de cuentas activas sobre el total.</p>
         </article>
 
         <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_12px_32px_rgba(15,23,42,0.05)] dark:border-gray-800 dark:bg-gray-900">
@@ -241,11 +247,11 @@
             <h3 class="text-lg font-semibold tracking-[-0.02em] text-ink dark:text-white/90">Roles con mayor cobertura</h3>
             <p class="mt-1 text-sm leading-6 text-slate-500 dark:text-gray-400">Grupos más utilizados para asignación de permisos internos.</p>
           </div>
-          <span class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-gray-800 dark:text-gray-300">{{ group_coverage_ratio }}% con integrantes</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-gray-800 dark:text-gray-300"><span data-dashboard-metric="group_coverage_ratio">{{ group_coverage_ratio }}</span>% con integrantes</span>
         </div>
 
         <div class="p-5">
-          <div class="space-y-4">
+          <div class="space-y-4" data-dashboard-top-groups>
             {% for group in top_groups %}
               <div class="rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-4 dark:border-gray-800 dark:bg-gray-950/60">
                 <div class="flex items-center justify-between gap-3">
@@ -273,11 +279,11 @@
         <div class="mt-4 space-y-4">
           <div class="rounded-xl bg-slate-50 px-4 py-4 dark:bg-gray-950">
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Cuentas activas</p>
-            <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300">{{ active_user_count }} de {{ user_count }} usuarios ya tienen acceso habilitado al sistema.</p>
+            <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300" data-dashboard-copy="active_status">{{ active_user_count }} de {{ user_count }} usuarios ya tienen acceso habilitado al sistema.</p>
           </div>
           <div class="rounded-xl bg-slate-50 px-4 py-4 dark:bg-gray-950">
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Cuentas pendientes</p>
-            <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300">
+            <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300" data-dashboard-copy="inactive_status">
               {% if inactive_user_count == 1 %}
                 Hay 1 cuenta inactiva que podría requerir seguimiento.
               {% else %}
@@ -287,7 +293,7 @@
           </div>
           <div class="rounded-xl bg-slate-50 px-4 py-4 dark:bg-gray-950">
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Roles configurados</p>
-            <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300">Hay {{ group_count }} grupo{{ group_count|pluralize }} disponible{{ group_count|pluralize }} para distribuir permisos sin asignarlos usuario por usuario.</p>
+            <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300" data-dashboard-copy="group_status">Hay {{ group_count }} grupo{{ group_count|pluralize }} disponible{{ group_count|pluralize }} para distribuir permisos sin asignarlos usuario por usuario.</p>
           </div>
         </div>
       </article>
