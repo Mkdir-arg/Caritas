@@ -1,0 +1,254 @@
+{% extends "admin/change_list.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    /* Reset de estilos del admin de Django */
+    #changelist {
+      background: transparent;
+    }
+
+    #changelist-form {
+      background: white;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    }
+
+    /* Header de la tabla */
+    #changelist-form .results {
+      overflow-x: auto;
+      background: white;
+    }
+
+    #result_list {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    #result_list thead th {
+      background: #f8fafc;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+    }
+
+    #result_list thead th a {
+      color: #64748b;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    #result_list thead th.sorted {
+      background: #f1f5f9;
+    }
+
+    /* Filas de la tabla */
+    #result_list tbody tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: all 0.15s ease;
+    }
+
+    #result_list tbody tr:hover {
+      background: linear-gradient(90deg, rgba(79, 70, 229, 0.02) 0%, rgba(79, 70, 229, 0.04) 50%, rgba(79, 70, 229, 0.02) 100%);
+    }
+
+    #result_list tbody td {
+      padding: 1.25rem 1.5rem;
+      vertical-align: middle;
+      color: #334155;
+    }
+
+    /* Primera columna (checkbox) */
+    #result_list tbody td.action-checkbox {
+      padding-left: 1.5rem;
+      width: 2.5rem;
+    }
+
+    #result_list tbody td.action-checkbox input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 0.25rem;
+      border: 1px solid #cbd5e1;
+      cursor: pointer;
+    }
+
+    /* Links en las celdas */
+    #result_list tbody td a {
+      color: #0f172a;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    #result_list tbody td a:hover {
+      color: #4f46e5;
+    }
+
+    /* Acciones */
+    .actions {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 1.5rem;
+    }
+
+    .actions select {
+      border-radius: 0.75rem;
+      border: 1px solid #cbd5e1;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      background: white;
+    }
+
+    .actions button {
+      background: #0f172a;
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: all 0.15s ease;
+    }
+
+    .actions button:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    /* Paginación */
+    .paginator {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    .paginator a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+      transition: all 0.15s ease;
+    }
+
+    .paginator a:hover {
+      background: #eef2ff;
+    }
+
+    /* Filtros laterales */
+    #changelist-filter {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    #changelist-filter h2 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 1rem;
+    }
+
+    #changelist-filter h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 1rem 0 0.5rem;
+    }
+
+    #changelist-filter ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #changelist-filter li {
+      padding: 0.5rem 0;
+    }
+
+    #changelist-filter a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.15s ease;
+    }
+
+    #changelist-filter a:hover {
+      color: #4f46e5;
+    }
+
+    #changelist-filter li.selected a {
+      color: #4f46e5;
+      font-weight: 600;
+    }
+
+    /* Búsqueda */
+    #toolbar {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #toolbar form input[type="text"] {
+      border: 1px solid #cbd5e1;
+      border-radius: 1rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      width: 100%;
+      max-width: 24rem;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%);
+      transition: all 0.15s ease;
+    }
+
+    #toolbar form input[type="text"]:focus {
+      outline: none;
+      border-color: #818cf8;
+      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+    }
+
+    #toolbar form input[type="submit"] {
+      background: #0f172a;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: all 0.15s ease;
+    }
+
+    #toolbar form input[type="submit"]:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    /* Mensajes vacíos */
+    .results p.paginator {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: #64748b;
+    }
+  </style>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block body %}
+<main class="min-h-screen bg-[#f6f8fc] text-ink transition-colors dark:bg-gray-950 dark:text-white/90 lg:text-[13px]" data-dashboard-shell>
+  <div class="pointer-events-none fixed inset-0 z-40 bg-slate-950/30 opacity-0 transition lg:hidden" data-dashboard-backdrop></div>
+
+  <aside class="fixed inset-y-0 left-0 z-50 h-screen w-[220px] -translate-x-full overflow-y-auto border-r border-slate-200 bg-white/92 px-3 py-4 shadow-[0_20px_60px_rgba(16,20,24,0.12)] backdrop-blur transition dark:border-gray-800 dark:bg-gray-900/95 lg:translate-x-0 lg:shadow-none lg:transition-[width,padding] lg:duration-300" data-dashboard-sidebar>
+    <div class="flex min-h-full flex-col gap-4.5">
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex min-w-0 items-center gap-3" data-sidebar-brand-wrap>
+          <div class="flex h-8.5 w-8.5 shrink-0 items-center justify-center rounded-lg shadow-[0_10px_25px_rgba(70,95,255,0.22)]">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="6" fill="#465FFF"></rect>
+              <rect x="7" y="6.5" width="2.5" height="11" rx="1.25" fill="white"></rect>
+              <rect x="11" y="8.5" width="2.5" height="9" rx="1.25" fill="white"></rect>
+              <rect x="15" y="5" width="2.5" height="12.5" rx="1.25" fill="white"></rect>
+            </svg>
+          </div>
+          <div class="min-w-0" data-sidebar-brand>
+            <p class="text-sm font-semibold text-ink dark:text-white/90">{{ BRAND_NAME }}</p>
+            <p class="text-xs text-slate-500 dark:text-gray-400">Panel principal</p>
+          </div>
+        </div>
+        <button type="button" class="hidden h-8.5 w-8.5 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-ink dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-700 dark:hover:text-white/90 lg:inline-flex" data-dashboard-collapse aria-label="Contraer menu lateral" title="Contraer menu lateral">
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 transition-transform duration-300" data-dashboard-collapse-icon>
+            <path d="m14 7-5 5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-2" data-sidebar-section>
+        <p class="px-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-gray-500" data-sidebar-heading>General</p>
+        <a href="{% url 'core:dashboard' %}" class="flex items-center gap-2.5 rounded-xl px-2.5 py-1.5 text-sm font-medium transition-[padding,justify-content] {% if active_nav == 'dashboard' %}bg-brand-50 text-brand-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] dark:bg-brand-500/15 dark:text-brand-300{% else %}text-slate-600 hover:bg-slate-100 hover:text-ink dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white/90{% endif %}" data-sidebar-item>
+          <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-500 dark:bg-gray-800 dark:text-gray-300">
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4">
+              <path d="M4 13h7V4H4v9Zm0 7h7v-5H4v5Zm9 0h7V11h-7v9Zm0-16v5h7V4h-7Z" fill="currentColor"></path>
+            </svg>
+          </span>
+          <span data-sidebar-label>Dashboard</span>
+        </a>
+        <a href="{% url 'core:access_management' %}" class="flex items-center gap-2.5 rounded-xl px-2.5 py-1.5 text-sm font-medium transition-[padding,justify-content] {% if active_nav == 'access' %}bg-brand-50 text-brand-700 shadow-[0_1px_2px_rgba(16,24,40,0.05)] dark:bg-brand-500/15 dark:text-brand-300{% else %}text-slate-600 hover:bg-slate-100 hover:text-ink dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white/90{% endif %}" data-sidebar-item>
+          <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-500 dark:bg-gray-800 dark:text-gray-300">
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-7 8a7 7 0 1 1 14 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M18 6h3M19.5 4.5v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+            </svg>
+          </span>
+          <span data-sidebar-label>Usuarios y grupos</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <section class="min-w-0 lg:pl-[220px] lg:transition-[padding] lg:duration-300" data-dashboard-content>
+    <header class="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-slate-200/80 bg-white/80 px-4 py-2 backdrop-blur dark:border-gray-800 dark:bg-gray-950/80 sm:px-5 lg:px-5">
+      <div class="flex items-center gap-3">
+        <button type="button" class="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-ink dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-700 dark:hover:text-white/90 lg:hidden" data-dashboard-toggle aria-label="Abrir menu lateral">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+          </svg>
+        </button>
+        <div class="flex min-w-0 items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 shadow-[0_1px_2px_rgba(16,24,40,0.05)] dark:border-gray-800 dark:bg-gray-900 sm:min-w-[240px] md:min-w-[300px]">
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-slate-400 dark:text-gray-500">
+            <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.8"></circle>
+          </svg>
+          <input type="text" placeholder="Buscar métricas, vistas o acciones..." class="min-w-0 flex-1 border-0 bg-transparent p-0 text-sm text-slate-700 placeholder:text-slate-400 focus:ring-0 dark:text-gray-200 dark:placeholder:text-gray-500">
+          <span class="hidden rounded-lg border border-slate-200 px-2 py-1 text-xs font-medium text-slate-400 dark:border-gray-800 dark:text-gray-500 sm:inline-flex">⌘K</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button type="button" class="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-ink dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-700 dark:hover:text-white/90" data-theme-toggle aria-label="Activar modo oscuro" title="Activar modo oscuro">
+          <svg class="hidden h-5 w-5 stroke-current dark:block" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke-width="1.8"></circle>
+            <path d="M12 2.5V5" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M12 19V21.5" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M4.93 4.93 6.7 6.7" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M17.3 17.3 19.07 19.07" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M2.5 12H5" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M19 12H21.5" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M4.93 19.07 6.7 17.3" stroke-width="1.8" stroke-linecap="round"></path>
+            <path d="M17.3 6.7 19.07 4.93" stroke-width="1.8" stroke-linecap="round"></path>
+          </svg>
+          <svg class="h-5 w-5 stroke-current dark:hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z" stroke-width="1.8" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-2.5 py-1 dark:border-gray-800 dark:bg-gray-900">
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-600 text-sm font-semibold text-white">{{ request.user.username|first|upper }}</div>
+          <div class="hidden sm:block">
+            <p class="text-sm font-semibold text-ink dark:text-white/90">{{ request.user.username }}</p>
+            <p class="text-xs text-slate-500 dark:text-gray-400">Sesión activa</p>
+          </div>
+        </div>
+        <form method="post" action="{% url 'core:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-ink dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-700 dark:hover:text-white/90" aria-label="Cerrar sesión">
+            <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+              <path d="M15 17l5-5-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M20 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              <path d="M13 20H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </header>
+
+    <div class="space-y-3 px-4 py-3 sm:px-5 lg:px-5 lg:py-3">
+      <section class="flex flex-col gap-1.5 rounded-[1.2rem] border border-slate-200 bg-white/70 px-4 py-2.5 shadow-[0_1px_2px_rgba(16,24,40,0.05)] backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-brand-600">{{ page_kicker }}</p>
+          <h1 class="mt-0.5 text-[1.35rem] font-semibold tracking-tight text-ink dark:text-white/90">{{ page_title }}</h1>
+          <p class="mt-1 text-sm text-slate-500 dark:text-gray-400">{{ page_description }}</p>
+        </div>
+      </section>
+
+      {% if messages %}
+        <section class="space-y-3">
+          {% for message in messages %}
+            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/50 dark:text-emerald-300">{{ message }}</div>
+          {% endfor %}
+        </section>
+      {% endif %}
+
+      {% block dashboard_content %}{% endblock %}
+    </div>
+  </section>
+</main>
+{% endblock %}

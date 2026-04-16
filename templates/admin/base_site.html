@@ -1,0 +1,285 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    /* Mejoras generales al admin */
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f8fafc;
+    }
+
+    /* Header */
+    #header {
+      background: linear-gradient(180deg, #0F172A 0%, #111827 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #branding h1 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    #branding h1 a {
+      color: white;
+    }
+
+    #user-tools {
+      color: rgba(226, 232, 240, 0.85);
+    }
+
+    #user-tools a {
+      color: rgba(226, 232, 240, 0.85);
+      transition: color 0.15s ease;
+    }
+
+    #user-tools a:hover {
+      color: white;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 2rem;
+      font-size: 0.875rem;
+    }
+
+    .breadcrumbs a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .breadcrumbs a:hover {
+      color: #4338ca;
+    }
+
+    /* Content */
+    #content {
+      padding: 2rem;
+    }
+
+    #content-main {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Títulos */
+    #content h1 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    /* Botones */
+    .button,
+    input[type="submit"],
+    input[type="button"],
+    .submit-row input,
+    a.button {
+      background: #0f172a;
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .button:hover,
+    input[type="submit"]:hover,
+    input[type="button"]:hover,
+    .submit-row input:hover,
+    a.button:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+    }
+
+    .button.default,
+    input[type="submit"].default,
+    .submit-row input.default {
+      background: #4f46e5;
+    }
+
+    .button.default:hover,
+    input[type="submit"].default:hover,
+    .submit-row input.default:hover {
+      background: #4338ca;
+    }
+
+    /* Formularios */
+    .form-row {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-row label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    input[type="number"],
+    input[type="tel"],
+    textarea,
+    select {
+      border: 1px solid #cbd5e1;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      width: 100%;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%);
+      transition: all 0.15s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus,
+    input[type="url"]:focus,
+    input[type="number"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #818cf8;
+      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+    }
+
+    /* Módulos */
+    .module {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .module h2 {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin: 0;
+    }
+
+    .module caption {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      text-align: left;
+    }
+
+    /* Mensajes */
+    .messagelist {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+    }
+
+    .messagelist li {
+      padding: 1rem 1.5rem;
+      border-radius: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .messagelist .success {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    .messagelist .warning {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #92400e;
+    }
+
+    .messagelist .error {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .messagelist .info {
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      color: #1e40af;
+    }
+
+    /* Sidebar */
+    #content-related {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    #content-related h2 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 1rem;
+    }
+
+    #content-related h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 1rem 0 0.5rem;
+    }
+
+    /* Object tools */
+    .object-tools {
+      margin-bottom: 1.5rem;
+    }
+
+    .object-tools li {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    .object-tools a {
+      background: #4f46e5;
+      color: white;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s ease;
+    }
+
+    .object-tools a:hover {
+      background: #4338ca;
+      transform: translateY(-1px);
+    }
+  </style>
+{% endblock %}

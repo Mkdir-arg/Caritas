@@ -1,0 +1,217 @@
+{% extends "dashboard/_shell.html" %}
+
+{% block title %}Usuarios y Grupos | {{ BRAND_NAME }}{% endblock %}
+
+{% block dashboard_content %}
+  <section class="overflow-hidden rounded-[1.7rem] border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.06)] dark:border-gray-800 dark:bg-gray-900">
+    <div class="border-b border-slate-200 bg-[radial-gradient(circle_at_top_left,_rgba(70,95,255,0.12),_transparent_36%),linear-gradient(180deg,_rgba(248,250,252,0.95),_rgba(255,255,255,1))] px-5 py-5 dark:border-gray-800 dark:bg-[radial-gradient(circle_at_top_left,_rgba(70,95,255,0.14),_transparent_35%),linear-gradient(180deg,_rgba(17,24,39,0.86),_rgba(17,24,39,1))] sm:px-6 sm:py-6">
+      <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+        <div class="max-w-2xl">
+          <div class="inline-flex rounded-2xl border border-slate-200 bg-white/90 p-1 shadow-[0_1px_2px_rgba(15,23,42,0.04)] dark:border-gray-800 dark:bg-gray-950/80" role="tablist" aria-label="Secciones de accesos">
+            <button type="button" class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-500 transition dark:text-gray-400" data-access-tab="users" aria-selected="true" role="tab">Usuarios</button>
+            <button type="button" class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-500 transition dark:text-gray-400" data-access-tab="roles" aria-selected="false" role="tab">Roles</button>
+          </div>
+          <h2 class="mt-5 text-[1.55rem] font-semibold tracking-[-0.04em] text-ink dark:text-white/90">Centro de accesos</h2>
+          <p class="mt-2 max-w-xl text-sm leading-6 text-slate-500 dark:text-gray-400">Administrá cuentas internas y grupos desde un panel simple, con foco en lectura rápida y estructura clara.</p>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-3 lg:min-w-[420px] lg:max-w-[470px]">
+          <article class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)] dark:border-gray-800 dark:bg-gray-950/80">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-gray-500">Usuarios</p>
+            <p class="mt-2 text-2xl font-semibold tracking-tight text-ink dark:text-white/90">{{ user_total }}</p>
+            <p class="mt-1 text-xs text-slate-500 dark:text-gray-400">Cuentas registradas</p>
+          </article>
+          <article class="rounded-2xl border border-emerald-100 bg-emerald-50/90 px-4 py-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)] dark:border-emerald-900/40 dark:bg-emerald-950/30">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-300">Activos</p>
+            <p class="mt-2 text-2xl font-semibold tracking-tight text-emerald-700 dark:text-emerald-200">{{ active_user_total }}</p>
+            <p class="mt-1 text-xs text-emerald-600/80 dark:text-emerald-300/80">Con acceso habilitado</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 shadow-[0_1px_2px_rgba(15,23,42,0.04)] dark:border-gray-800 dark:bg-gray-950/80">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-gray-500">Roles</p>
+            <p class="mt-2 text-2xl font-semibold tracking-tight text-ink dark:text-white/90">{{ group_total }}</p>
+            <p class="mt-1 text-xs text-slate-500 dark:text-gray-400">Grupos configurados</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div data-access-panel="users" role="tabpanel">
+      <div class="p-3 sm:p-4">
+        <section class="overflow-hidden rounded-[1.45rem] border border-slate-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+          <div class="border-b border-slate-200 px-5 py-5 dark:border-gray-800 sm:px-6">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <h3 class="text-lg font-semibold tracking-[-0.03em] text-ink dark:text-white/90">Usuarios</h3>
+                <p class="mt-1 text-sm text-slate-500 dark:text-gray-400">Listado simple de cuentas internas y sus grupos asignados.</p>
+              </div>
+              <a href="{% url 'core:user_create' %}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600">
+                <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path stroke-linecap="round" d="M10 4.25v11.5M4.25 10h11.5" />
+                </svg>
+                Nuevo usuario
+              </a>
+            </div>
+          </div>
+
+          <div class="border-b border-slate-200 px-5 py-4 dark:border-gray-800 sm:px-6">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div class="relative w-full lg:max-w-md">
+                <svg class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 dark:text-gray-500" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <circle cx="9" cy="9" r="5.75" />
+                  <path stroke-linecap="round" d="M13.5 13.5 17 17" />
+                </svg>
+                <input type="text" placeholder="Search..." class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-12 pr-4 text-sm text-ink placeholder:text-slate-400 focus:border-slate-300 focus:outline-none focus:ring-0 dark:border-gray-800 dark:bg-gray-950 dark:text-white/90 dark:placeholder:text-gray-500">
+              </div>
+              <button type="button" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300 dark:hover:bg-gray-900">
+                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path stroke-linecap="round" d="M3.75 5.5h12.5M6.5 10h7M8.5 14.5h3" />
+                  <circle cx="6.5" cy="5.5" r="1.25" fill="currentColor" stroke="none" />
+                  <circle cx="11" cy="10" r="1.25" fill="currentColor" stroke="none" />
+                  <circle cx="9.5" cy="14.5" r="1.25" fill="currentColor" stroke="none" />
+                </svg>
+                Filter
+              </button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[980px] border-collapse">
+              <thead>
+                <tr class="border-b border-slate-200 bg-slate-50/70 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 dark:border-gray-800 dark:bg-gray-900/70 dark:text-gray-500">
+                  <th class="px-6 py-3">Usuario</th>
+                  <th class="px-6 py-3">Correo</th>
+                  <th class="px-6 py-3">Grupos</th>
+                  <th class="px-6 py-3">Estado</th>
+                  <th class="px-6 py-3">Alta</th>
+                  <th class="px-6 py-3 text-right">Acción</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-gray-800">
+                {% for user_obj in users %}
+                  <tr class="align-middle transition hover:bg-slate-50/60 dark:hover:bg-gray-900/40">
+                    <td class="px-6 py-4">
+                      <div class="flex items-center gap-3.5">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-700 dark:bg-gray-800 dark:text-gray-200">{{ user_obj.username|first|upper }}</div>
+                        <div class="min-w-0">
+                          <p class="truncate text-[15px] font-semibold text-ink dark:text-white/90">{{ user_obj.username }}</p>
+                          <p class="truncate text-sm text-slate-500 dark:text-gray-400">
+                            {% if user_obj.first_name or user_obj.last_name %}
+                              {{ user_obj.first_name }} {{ user_obj.last_name }}
+                            {% else %}
+                              Sin nombre cargado
+                            {% endif %}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-gray-300">{{ user_obj.email|default:"-" }}</td>
+                    <td class="px-6 py-4">
+                      <div class="flex flex-wrap gap-1.5">
+                        {% for group in user_obj.groups.all %}
+                          <span class="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-gray-800 dark:text-gray-300">{{ group.name }}</span>
+                        {% empty %}
+                          <span class="text-sm text-slate-400 dark:text-gray-500">Sin grupos</span>
+                        {% endfor %}
+                      </div>
+                    </td>
+                    <td class="px-6 py-4">
+                      {% if user_obj.is_active %}
+                        <span class="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600">Activo</span>
+                      {% else %}
+                        <span class="inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-600">Pendiente</span>
+                      {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-gray-300">{{ user_obj.date_joined|date:"Y-m-d" }}</td>
+                    <td class="px-6 py-4 text-right">
+                      <a href="{% url 'core:user_update' user_obj.pk %}" class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-300" aria-label="Editar {{ user_obj.username }}">
+                        <svg class="h-4.5 w-4.5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.75 13.5V15.25H6.5L14.75 7L13 5.25L4.75 13.5Z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25 13.75 8" />
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="6" class="px-6 py-12 text-center text-sm font-medium text-slate-500 dark:text-gray-400">Todavía no hay usuarios creados.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="hidden" data-access-panel="roles" role="tabpanel">
+      <div class="grid gap-4 p-3 sm:p-4 xl:grid-cols-[minmax(0,1.6fr)_360px]">
+        <section class="rounded-[1.45rem] border border-slate-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+          <div class="flex flex-col gap-4 border-b border-slate-200 px-5 py-4 dark:border-gray-800 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h3 class="text-lg font-semibold tracking-[-0.03em] text-ink dark:text-white/90">Roles y grupos</h3>
+              <p class="mt-1 text-sm text-slate-500 dark:text-gray-400">Definí roles internos y revisá rápidamente cuántos usuarios dependen de cada grupo.</p>
+            </div>
+            <a href="{% url 'core:group_create' %}" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(70,95,255,0.18)] transition hover:bg-brand-600">
+              <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path stroke-linecap="round" d="M10 4.25v11.5M4.25 10h11.5" />
+              </svg>
+              Nuevo rol
+            </a>
+          </div>
+
+          <div class="grid gap-3 p-3 sm:grid-cols-2 sm:p-4 xl:grid-cols-2">
+            {% for group in groups %}
+              <article class="rounded-[1.25rem] border border-slate-200 bg-slate-50/65 p-4 transition hover:border-slate-300 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex min-w-0 items-center gap-3">
+                    <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-sm font-semibold text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.05)] dark:bg-gray-950 dark:text-gray-200">{{ group.name|slice:":1"|upper }}</div>
+                    <div class="min-w-0">
+                      <p class="truncate text-base font-semibold text-ink dark:text-white/90">{{ group.name }}</p>
+                      <p class="text-sm text-slate-500 dark:text-gray-400">{{ group.member_count }} integrante{{ group.member_count|pluralize }}</p>
+                    </div>
+                  </div>
+                  <span class="inline-flex rounded-full bg-slate-200/80 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:bg-gray-800 dark:text-gray-300">Rol</span>
+                </div>
+                <div class="mt-4 flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-3.5 py-3 dark:border-gray-800 dark:bg-gray-950">
+                  <div>
+                    <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Usuarios</p>
+                    <p class="mt-1 text-sm font-medium text-slate-600 dark:text-gray-300">{{ group.member_count }} asignado{{ group.member_count|pluralize }}</p>
+                  </div>
+                  <a href="{% url 'core:group_update' group.pk %}" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-3.5 py-2 text-sm font-semibold text-slate-600 transition hover:border-brand-200 hover:text-brand-600 dark:border-gray-700 dark:text-gray-300 dark:hover:border-brand-500/40 dark:hover:text-brand-300">
+                    Editar
+                  </a>
+                </div>
+              </article>
+            {% empty %}
+              <div class="sm:col-span-2 rounded-[1.25rem] border border-dashed border-slate-200 px-6 py-10 text-center dark:border-gray-800">
+                <p class="text-sm font-medium text-slate-500 dark:text-gray-400">Todavía no hay roles creados.</p>
+                <a href="{% url 'core:group_create' %}" class="mt-4 inline-flex items-center justify-center gap-2 rounded-2xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600">
+                  <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                    <path stroke-linecap="round" d="M10 4.25v11.5M4.25 10h11.5" />
+                  </svg>
+                  Crear primer rol
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+
+        <aside class="space-y-4">
+          <article class="rounded-[1.45rem] border border-slate-200 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] dark:border-gray-800 dark:bg-gray-950">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400 dark:text-gray-500">Mapa de roles</p>
+            <div class="mt-4 space-y-3">
+              <div class="rounded-2xl bg-slate-50 px-4 py-3 dark:bg-gray-900">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Cobertura</p>
+                <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300">Usá grupos para ordenar accesos internos y reducir permisos administrados usuario por usuario.</p>
+              </div>
+              <div class="rounded-2xl bg-slate-50 px-4 py-3 dark:bg-gray-900">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Cantidad actual</p>
+                <p class="mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300">Hay {{ group_total }} grupo{{ group_total|pluralize }} disponible{{ group_total|pluralize }} para estructurar accesos.</p>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </div>
+  </section>
+{% endblock %}
