@@ -7,11 +7,11 @@
     <section class="rounded-[1.75rem] border border-slate-200 bg-[radial-gradient(circle_at_top_left,_rgba(70,95,255,0.12),_transparent_42%),linear-gradient(180deg,_#ffffff_0%,_#f8fbff_100%)] px-6 py-7 shadow-[0_20px_50px_rgba(15,23,42,0.06)] dark:border-gray-800 dark:bg-[radial-gradient(circle_at_top_left,_rgba(70,95,255,0.16),_transparent_38%),linear-gradient(180deg,_rgba(17,24,39,0.96),_rgba(17,24,39,1))] sm:px-8 sm:py-8">
       <div class="flex flex-col gap-4">
         <div class="inline-flex w-fit rounded-2xl border border-slate-200 bg-white/90 p-1.5 shadow-[0_8px_24px_rgba(15,23,42,0.05)] dark:border-gray-800 dark:bg-gray-950/80" role="tablist" aria-label="Secciones de accesos">
-          <button type="button" class="rounded-xl px-5 py-2 text-sm font-semibold text-slate-500 transition dark:text-gray-400" data-access-tab="users" aria-selected="true" role="tab">Usuarios</button>
-          <button type="button" class="rounded-xl px-5 py-2 text-sm font-semibold text-slate-500 transition dark:text-gray-400" data-access-tab="roles" aria-selected="false" role="tab">Roles</button>
+          <button type="button" class="rounded-xl px-5 py-2 text-sm font-semibold text-slate-500 transition duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 dark:text-gray-400 dark:focus-visible:ring-offset-gray-950" data-access-tab="users" aria-selected="true" role="tab">Usuarios</button>
+          <button type="button" class="rounded-xl px-5 py-2 text-sm font-semibold text-slate-500 transition duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 dark:text-gray-400 dark:focus-visible:ring-offset-gray-950" data-access-tab="roles" aria-selected="false" role="tab">Roles</button>
         </div>
         <div class="max-w-3xl">
-          <h2 class="text-[1.7rem] font-semibold tracking-[-0.03em] text-ink dark:text-white/90 sm:text-[1.9rem]">Centro de accesos</h2>
+          <h2 class="text-[1.35rem] font-semibold tracking-tight text-ink dark:text-white/90 sm:text-[1.6rem]">Centro de accesos</h2>
           <p class="mt-2 text-[15px] leading-7 text-slate-500 dark:text-gray-400">Administrá cuentas internas, revisá el estado de acceso y ordená permisos por grupos desde una vista más clara y fácil de leer.</p>
         </div>
       </div>
@@ -67,7 +67,7 @@
             <h3 class="text-lg font-semibold tracking-[-0.02em] text-ink dark:text-white/90">Usuarios</h3>
             <p class="mt-1 text-sm leading-6 text-slate-500 dark:text-gray-400">Listado de cuentas internas con correo, grupos, estado y acceso directo a edición.</p>
           </div>
-          <a href="{% url 'core:user_create' %}" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(70,95,255,0.22)] transition hover:bg-brand-600">
+          <a href="{% url 'core:user_create' %}" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(70,95,255,0.22)] transition duration-150 ease-out hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900">
             <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
               <path stroke-linecap="round" d="M10 4.25v11.5M4.25 10h11.5" />
             </svg>
@@ -86,7 +86,7 @@
               </span>
               <input type="text" placeholder="Buscar usuario o correo" class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm text-ink placeholder:text-slate-400 shadow-[0_1px_2px_rgba(15,23,42,0.04)] focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-100 dark:border-gray-800 dark:bg-gray-950 dark:text-white/90 dark:placeholder:text-gray-500 dark:focus:border-brand-500/40 dark:focus:ring-brand-500/20">
             </div>
-            <button type="button" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300 dark:hover:bg-gray-900">
+            <button type="button" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition duration-150 ease-out hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300 dark:hover:bg-gray-900 dark:focus-visible:ring-offset-gray-900">
               <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                 <path stroke-linecap="round" d="M3.75 5.5h12.5M6.5 10h7M8.5 14.5h3" />
               </svg>
@@ -160,7 +160,7 @@
                   </td>
                   <td class="px-4 py-3.5 align-middle text-sm text-slate-600 dark:text-gray-300 whitespace-nowrap">{{ user_obj.date_joined|date:"Y-m-d" }}</td>
                   <td class="px-6 py-3.5 text-right align-middle">
-                    <a href="{% url 'core:user_update' user_obj.pk %}" class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600 dark:border-gray-800 dark:text-gray-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 dark:hover:text-brand-300" aria-label="Editar {{ user_obj.username }}">
+                    <a href="{% url 'core:user_update' user_obj.pk %}" class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition duration-150 ease-out hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 dark:border-gray-800 dark:text-gray-300 dark:hover:border-brand-500/40 dark:hover:bg-brand-500/10 dark:hover:text-brand-300 dark:focus-visible:ring-offset-gray-900" aria-label="Editar {{ user_obj.username }}">
                       <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.75 13.5V15.25H6.5L14.75 7L13 5.25L4.75 13.5Z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25 13.75 8" />
@@ -187,7 +187,7 @@
               <h3 class="text-lg font-semibold tracking-[-0.02em] text-ink dark:text-white/90">Roles y grupos</h3>
               <p class="mt-1 text-sm leading-6 text-slate-500 dark:text-gray-400">Definí grupos internos y revisá cuántos usuarios dependen de cada uno.</p>
             </div>
-            <a href="{% url 'core:group_create' %}" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(70,95,255,0.22)] transition hover:bg-brand-600">
+            <a href="{% url 'core:group_create' %}" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(70,95,255,0.22)] transition duration-150 ease-out hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900">
               <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                 <path stroke-linecap="round" d="M10 4.25v11.5M4.25 10h11.5" />
               </svg>
@@ -213,7 +213,7 @@
                     <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-gray-500">Usuarios</p>
                     <p class="mt-1 text-sm font-medium text-slate-600 dark:text-gray-300">{{ group.member_count }} asignado{{ group.member_count|pluralize }}</p>
                   </div>
-                  <a href="{% url 'core:group_update' group.pk %}" class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-3.5 py-2 text-sm font-semibold text-slate-600 transition hover:border-brand-200 hover:text-brand-600 dark:border-gray-700 dark:text-gray-300 dark:hover:border-brand-500/40 dark:hover:text-brand-300">
+                  <a href="{% url 'core:group_update' group.pk %}" class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-3.5 py-2 text-sm font-semibold text-slate-600 transition duration-150 ease-out hover:border-brand-200 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 dark:border-gray-700 dark:text-gray-300 dark:hover:border-brand-500/40 dark:hover:text-brand-300 dark:focus-visible:ring-offset-gray-900">
                     Editar
                   </a>
                 </div>
@@ -221,7 +221,7 @@
             {% empty %}
               <div class="sm:col-span-2 rounded-xl border border-dashed border-slate-200 px-6 py-12 text-center dark:border-gray-800">
                 <p class="text-sm font-medium text-slate-500 dark:text-gray-400">Todavía no hay roles creados.</p>
-                <a href="{% url 'core:group_create' %}" class="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600">
+                <a href="{% url 'core:group_create' %}" class="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition duration-150 ease-out hover:bg-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900">
                   <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                     <path stroke-linecap="round" d="M10 4.25v11.5M4.25 10h11.5" />
                   </svg>

@@ -4,8 +4,10 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Count
+from django.utils import timezone
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
+from datetime import timedelta
 
 from .forms import AccessGroupForm, AccessUserCreateForm, AccessUserUpdateForm
 
@@ -55,10 +57,27 @@ class DashboardView(StaffRequiredMixin, DashboardShellMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        total_users = User.objects.count()
+        active_users = User.objects.filter(is_active=True).count()
+        inactive_users = total_users - active_users
+        staff_users = User.objects.filter(is_staff=True).count()
+        recent_threshold = timezone.now() - timedelta(days=30)
+        recent_users = User.objects.prefetch_related("groups").order_by("-date_joined")[:5]
+        groups = list(Group.objects.annotate(member_count=Count("user")).order_by("-member_count", "name")[:5])
+        groups_with_members = sum(1 for group in groups if group.member_count > 0)
+
         context.update(
             {
-                "user_count": User.objects.filter(is_active=True).count(),
+                "user_count": total_users,
+                "active_user_count": active_users,
+                "inactive_user_count": inactive_users,
+                "staff_user_count": staff_users,
                 "group_count": Group.objects.count(),
+                "recent_user_count": User.objects.filter(date_joined__gte=recent_threshold).count(),
+                "active_user_ratio": round((active_users / total_users) * 100) if total_users else 0,
+                "group_coverage_ratio": round((groups_with_members / len(groups)) * 100) if groups else 0,
+                "recent_users": recent_users,
+                "top_groups": groups,
             }
         )
         return context
